@@ -1,6 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter/services.dart';
+
+
 
 
 Future<String> getData() async {
@@ -14,5 +18,12 @@ Future<String> getData() async {
   return feedMessage.entity.toString();
 
   //test
+
+}
+
+
+void _loadCSV() async {
+  final _rawData = await rootBundle.loadString("");
+  const CsvToListConverter().convert(_rawData);
 
 }
