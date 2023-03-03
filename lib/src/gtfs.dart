@@ -22,8 +22,8 @@ Future<String> getData() async {
 }
 
 
-void _loadCSV() async {
-  final _rawData = await rootBundle.loadString("");
+void _loadCSVStops() async {
+  final _rawData = await rootBundle.loadString("assets/stopsBis.csv");
   const CsvToListConverter().convert(_rawData);
 
 }
