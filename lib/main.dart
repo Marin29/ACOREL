@@ -3,11 +3,13 @@ import 'package:apli1/pages/home_page.dart';
 import 'package:apli1/pages/lignes_page.dart';
 import 'package:flutter/material.dart';
 import 'package:apli1/pages/map_page.dart';
-
+import 'package:apli1/src/gtfs.dart';
 
 
 void main(){
   runApp(const MyApp());
+  getData();
+
   
 }
 class MyApp extends StatefulWidget {

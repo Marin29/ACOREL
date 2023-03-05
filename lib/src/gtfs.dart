@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 
 
 Future<String> getData() async {
-  final url = Uri.parse('https://proxy.transport.data.gouv.fr/resource/ilevia-lille-gtfs-rt');
+  final url = Uri.parse('https://pysae.com/api/v2/groups/transdev-cotentin/gtfs-rt');
   final response = await http.get(url);
 
   final feedMessage = FeedMessage.fromBuffer(response.bodyBytes);
