@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gtfs_realtime_bindings/gtfs_realtime_bindings.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
+import 'package:protobuf/protobuf.dart';
 
 
 
@@ -13,7 +14,24 @@ Future<String> getData() async {
 
   final feedMessage = FeedMessage.fromBuffer(response.bodyBytes);
 
-  print(feedMessage.entity.toString());
+  //print(feedMessage.entity.toString());
+
+  final vehiclePosition = feedMessage.entity
+      .map((e) => e.vehicle)
+      .where((vp) => vp != null)
+      .firstWhere((vp) => vp.vehicle.id == '61289ff756b38782f6019835');
+
+  if (vehiclePosition != null) {
+    final position = vehiclePosition.position;
+    final latitude = position.latitude;
+    final longitude = position.longitude;
+
+    print('Latitude: $latitude');
+    print('Longitude: $longitude');
+
+  }
+
+
 
   return feedMessage.entity.toString();
 
