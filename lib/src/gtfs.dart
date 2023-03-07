@@ -5,30 +5,34 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'package:protobuf/protobuf.dart';
 
+class VehicleInfo {
+  final String id;
+  final String route;
+  final double latitude;
+  final double longitude;
+
+  VehicleInfo(this.id, this.route, this.latitude, this.longitude);
+}
 
 
 
 Future<String> getData() async {
   final url = Uri.parse('https://pysae.com/api/v2/groups/transdev-cotentin/gtfs-rt');
   final response = await http.get(url);
-
   final feedMessage = FeedMessage.fromBuffer(response.bodyBytes);
 
   //print(feedMessage.entity.toString());
 
-  final vehiclePosition = feedMessage.entity
-      .map((e) => e.vehicle)
-      .where((vp) => vp != null)
-      .firstWhere((vp) => vp.vehicle.id == '61289ff756b38782f6019835');
+  for (var entity in feedMessage.entity) {
+    final vehiclePosition = entity.vehicle?.position;
+    final vehicleId = entity.vehicle?.vehicle?.id;
+    final routeId = entity.vehicle?.trip?.routeId;
+    if (vehiclePosition != null && vehicleId != null) {
+      final latitude = vehiclePosition.latitude;
+      final longitude = vehiclePosition.longitude;
 
-  if (vehiclePosition != null) {
-    final position = vehiclePosition.position;
-    final latitude = position.latitude;
-    final longitude = position.longitude;
-
-    print('Latitude: $latitude');
-    print('Longitude: $longitude');
-
+      print('(trip $routeId): ($latitude, $longitude)');
+    }
   }
 
 
@@ -38,8 +42,6 @@ Future<String> getData() async {
   //test
 
 }
-
-
 void _loadCSVStops() async {
   final _rawData = await rootBundle.loadString("assets/arrets.csv");
   const CsvToListConverter().convert(_rawData);
