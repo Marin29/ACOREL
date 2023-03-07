@@ -21,6 +21,8 @@ Future<String> getData() async {
   final response = await http.get(url);
   final feedMessage = FeedMessage.fromBuffer(response.bodyBytes);
 
+  final vehicleInfos = <VehicleInfo>[];
+
   //print(feedMessage.entity.toString());
 
   for (var entity in feedMessage.entity) {
@@ -31,10 +33,14 @@ Future<String> getData() async {
       final latitude = vehiclePosition.latitude;
       final longitude = vehiclePosition.longitude;
 
-      print('(trip $routeId): ($latitude, $longitude)');
+      final vehicleInfo = VehicleInfo(vehicleId, routeId!, latitude, longitude);
+      vehicleInfos.add(vehicleInfo);
     }
   }
 
+  for (var vehicleInfo in vehicleInfos) {
+    print('Vehicle ${vehicleInfo.id} (trip ${vehicleInfo.route}): (${vehicleInfo.latitude}, ${vehicleInfo.longitude})');
+  }
 
 
   return feedMessage.entity.toString();

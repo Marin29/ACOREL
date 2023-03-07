@@ -106,7 +106,7 @@ class _MyApState extends State<MyAp> {
         body: GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: const CameraPosition(
-            target: LatLng(50.633331, 3.06),
+            target: LatLng(49.63362121582031, -1.6171009540557861),
             zoom: 13.5,
           ),
           markers: _markers.values.toSet(),
