@@ -16,7 +16,7 @@ class VehicleInfo {
 
 
 
-Future<String> getData() async {
+Future<List<VehicleInfo>> getData() async {
   final url = Uri.parse('https://pysae.com/api/v2/groups/transdev-cotentin/gtfs-rt');
   final response = await http.get(url);
   final feedMessage = FeedMessage.fromBuffer(response.bodyBytes);
@@ -43,7 +43,7 @@ Future<String> getData() async {
   }
 
 
-  return feedMessage.entity.toString();
+  return vehicleInfos;
 
   //test
 

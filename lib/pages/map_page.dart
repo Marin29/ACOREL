@@ -48,7 +48,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:apli1/src/locations.dart' as locations;
-
+import 'package:apli1/src/gtfs.dart' as gtfs;
 
 
 
@@ -65,7 +65,7 @@ class _MyApState extends State<MyAp> {
 
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    final googleOffices = await locations.getGoogleOffices();
+    final vehiclesInfo = await gtfs.getData();
     final icon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(
             size: Size(1,1),
@@ -79,21 +79,19 @@ class _MyApState extends State<MyAp> {
     setState(() {
       _markers.clear();
 
-      for (final office in googleOffices.offices) {
+      for (final vehicle in vehiclesInfo) {
 
         final marker = Marker(
-          markerId: MarkerId(office.name),
-          position: LatLng(office.lat, office.lng),
+          markerId: MarkerId(vehicle.id),
+          position: LatLng(vehicle.latitude, vehicle.longitude),
           infoWindow: InfoWindow(
-            title: office.name,
-            snippet: office.address,
-
+            title: vehicle.route,
 
           ),
           icon: icon,
 
         );
-        _markers[office.name] = marker;
+        _markers[vehicle.id] = marker;
       }
 
     });
