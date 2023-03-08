@@ -38,11 +38,11 @@ Future<List<VehicleInfo>> getData() async {
     }
   }
 
-  for (var vehicleInfo in vehicleInfos) {
+  /*for (var vehicleInfo in vehicleInfos) {
     print('Vehicle ${vehicleInfo.id} (trip ${vehicleInfo.route}): (${vehicleInfo.latitude}, ${vehicleInfo.longitude})');
   }
 
-
+*/
   return vehicleInfos;
 
   //test

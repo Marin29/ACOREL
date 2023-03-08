@@ -50,7 +50,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:apli1/src/locations.dart' as locations;
 import 'package:apli1/src/gtfs.dart' as gtfs;
 
+void placeVehicles(){
 
+}
 
 class MyAp extends StatefulWidget {
   const MyAp({Key? key}) : super(key: key);
@@ -70,7 +72,7 @@ class _MyApState extends State<MyAp> {
         ImageConfiguration(
             size: Size(1,1),
         ),
-        "assets/images/images.png"
+        "assets/images/bus_marker.png"
 
     );
 
@@ -119,7 +121,8 @@ class _MyApState extends State<MyAp> {
             )
         )
       },
-    label: const Text('Recenter'),
+
+    label: const Text('Actualiser'),
     icon: const Icon(Icons.center_focus_strong),
       )
     );
