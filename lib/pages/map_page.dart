@@ -50,18 +50,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:apli1/src/locations.dart' as locations;
 import 'package:apli1/src/gtfs.dart' as gtfs;
 
-void placeVehicles(){
-
-}
-
-class MyAp extends StatefulWidget {
-  const MyAp({Key? key}) : super(key: key);
+class MapPage extends StatefulWidget {
+  const MapPage({Key? key}) : super(key: key);
 
   @override
-  _MyApState createState() => _MyApState();
+  _MapPageState createState() => _MapPageState();
 }
 
-class _MyApState extends State<MyAp> {
+class _MapPageState extends State<MapPage> {
 
 
 
@@ -73,7 +69,6 @@ class _MyApState extends State<MyAp> {
             size: Size(1,1),
         ),
         "assets/images/bus_marker.png"
-
     );
 
 
@@ -90,7 +85,7 @@ class _MyApState extends State<MyAp> {
             title: vehicle.route,
 
           ),
-          icon: icon,
+          icon: vehicle.color,
 
         );
         _markers[vehicle.id] = marker;
@@ -117,7 +112,7 @@ class _MyApState extends State<MyAp> {
         Navigator.push(
             context,
             PageRouteBuilder(
-                pageBuilder: (_,__,___) => MyAp()
+                pageBuilder: (_,__,___) => MapPage()
             )
         )
       },

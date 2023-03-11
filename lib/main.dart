@@ -7,7 +7,7 @@ import 'package:apli1/src/gtfs.dart';
 
 
 void main(){
-  runApp(const MyApp());
+  runApp(const MaterialApp(home : MyApp() ));
   getData();
 
   
@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         body: const  [
           Home(),
           LignesPage(),
-          MyAp(),
+          MapPage(),
           Add()
 
           
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index)=>setCurrentIndex(index),
-          selectedItemColor: Colors.green,
+          selectedItemColor: Colors.red,
           unselectedItemColor: Colors.black,
           iconSize: 40,
           elevation: 15,

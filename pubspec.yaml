@@ -74,7 +74,7 @@ flutter:
      - assets/images/
      - assets/locations.json
      - assets/arrets.csv
-     - assets/routesTriees2.csv
+     - assets/routesCotentin.csv
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
