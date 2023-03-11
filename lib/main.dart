@@ -20,7 +20,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   setCurrentIndex(int index){
     setState(() {
@@ -31,16 +31,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const [
-            Text("Acorel"),
-            Text("Lignes"),
-            Text("Carte"),
-            Text("Ajouter une ligne")
-          ][_currentIndex]
-        ),
+
         body: const  [
-          Home(),
           LignesPage(),
           MapPage(),
           Add()
@@ -56,10 +48,7 @@ class _MyAppState extends State<MyApp> {
           iconSize: 40,
           elevation: 15,
           items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Accueil'
-            ),
+
             BottomNavigationBarItem(
                 icon: Icon(Icons.train),
                 label: 'Lignes'

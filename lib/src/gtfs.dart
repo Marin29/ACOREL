@@ -26,15 +26,17 @@ String strip(String str, String charactersToRemove){
 
 String? getRouteLongNameFromId(String routeId, List<dynamic> csvList) {
 
+  String destination = "";
   String toRemove = "0";
   String routeIdSans0 = strip(routeId, toRemove);
   // Parcourir chaque ligne du CSV
   for (List<dynamic> row in csvList) {
     //print (row);
     // Vérifier si l'ID de la route correspond
-    if (routeIdSans0.toString() == row[0].toString()) {
+    if (routeIdSans0 == row[0].toString()) {
+      destination = row[3].split("-")[1].trim();
       // Retourner la valeur de la colonne route_long_name
-      return row[3];
+      return destination;
     }
   }
   // Si l'ID de la route n'est pas trouvé, retourner null ou une valeur par défaut
@@ -154,8 +156,8 @@ Future<List<VehicleInfo>> getData() async {
     if (vehiclePosition != null && vehicleId != null) {
       final latitude = vehiclePosition.latitude;
       final longitude = vehiclePosition.longitude;
-      final destination = getRouteLongNameFromId(routeId!, routeCsv);
-      //print(destination);
+      final destination = getRouteLongNameFromId(entity.vehicle.trip.routeId, routeCsv);
+      print(destination);
 
       final vehicleInfo = VehicleInfo(
           vehicleId, routeId!, latitude, longitude, destination!, color);

@@ -50,6 +50,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:apli1/src/locations.dart' as locations;
 import 'package:apli1/src/gtfs.dart' as gtfs;
 
+import '../main.dart';
+
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
 
@@ -82,7 +84,8 @@ class _MapPageState extends State<MapPage> {
           markerId: MarkerId(vehicle.id),
           position: LatLng(vehicle.latitude, vehicle.longitude),
           infoWindow: InfoWindow(
-            title: vehicle.route,
+            title: "Ligne : ${vehicle.route}" ,
+            snippet : "Destination : ${vehicle.destination}",
 
           ),
           icon: vehicle.color,
@@ -108,18 +111,23 @@ class _MapPageState extends State<MapPage> {
 
         ),
     floatingActionButton: FloatingActionButton.extended(
-      onPressed: ()=> {
+        backgroundColor : Colors.red,
+        onPressed: ()=> {
         Navigator.push(
             context,
             PageRouteBuilder(
-                pageBuilder: (_,__,___) => MapPage()
+                pageBuilder: (_,__,___) => MyApp()
             )
         )
       },
 
+
     label: const Text('Actualiser'),
-    icon: const Icon(Icons.center_focus_strong),
-      )
+    icon: const Icon(Icons.refresh),
+
+    ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
     );
 
   }
