@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
 
         body: const  [
-          LignesPage(),
+          SearchPage(),
           MapPage(),
           Add()
 

@@ -1,34 +1,44 @@
 import'package:flutter/material.dart';
 
-class LignesPage extends StatefulWidget {
-  const LignesPage({Key? key}) : super(key: key);
+class SearchPage extends StatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
-  State<LignesPage> createState() => _LignesPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _LignesPageState extends State<LignesPage> {
+class _SearchPageState extends State<SearchPage> {
 
   final events =[
     {
-      "intitule": "Métro 1",
-      "type": "metro",
-      "logo": "M1.jpg"
+      "intitule": "Ligne 1",
+      "route": "Les Fourches <> Schuman-Delaville",
+      "logo": "Macarons-Lignes-1.png"
     },
     {
-      "intitule": "Métro 2",
-      "type": "metro",
-      "logo": "M2.png"
+      "intitule": "Ligne 2",
+      "route": "Digard <> Collignon",
+      "logo": "Ligne-2_sept22.jpg"
     },
     {
-      "intitule": "Tramway R",
-      "type": "tram",
-      "logo": "TR.jpg"
+      "intitule": "Ligne 3",
+      "route": "Brécourt <> Eglantine château",
+      "logo": "Macarons-Lignes-3.png"
     },
     {
-      "intitule": "Tramway T",
-      "type": "tram",
-      "logo": "TT.jpg"
+      "intitule": "Ligne 4",
+      "route": "Amfreville <> Marettes",
+      "logo": "Macarons-Lignes-4.png"
+    },
+    {
+      "intitule": "Ligne 5",
+      "route": "Querqueville/Amfreville <> Flamands",
+      "logo": "Macarons-Lignes-5.png"
+    },
+    {
+      "intitule": "Ligne 6",
+      "route": "Polyclinique <> Sauxmarais",
+      "logo": "Macarons-Lignes-6.jpg"
     }
 
   ];
@@ -41,14 +51,14 @@ class _LignesPageState extends State<LignesPage> {
           final event = events[index];
           final logo = event['logo'];
           final intitule = event['intitule'];
-          final type = event['type'];
+          final route = event['route'];
 
           return Card(
               child: ListTile(
                 leading: Image.asset("assets/images/$logo"),
                 title: Text("$intitule"),
-                subtitle: Text("$type"),
-                trailing: const Icon(Icons.more_vert),
+                subtitle: Text("$route"),
+                trailing: const Icon(Icons.arrow_forward_ios),
               )
           );
         },
