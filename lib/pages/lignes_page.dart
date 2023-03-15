@@ -3,6 +3,15 @@ import 'package:csv/csv.dart';
 import 'package:apli1/src/gtfs.dart';
 import 'package:flutter/services.dart';
 
+import 'arrets_page.dart';
+
+
+void getLigne(int index, BuildContext context){
+  final ligne = index.toString();
+
+  loadStops(ligne, context);
+}
+
 Future<List<List>> _loadCSV(String csvPath) async {
   final _rawData = await rootBundle.loadString(csvPath);
   final list = await CsvToListConverter().convert(_rawData);
@@ -10,9 +19,10 @@ Future<List<List>> _loadCSV(String csvPath) async {
 }
 
 
-Future<void> loadStops() async {
-  String stopNames = "";
-  String ligne = "1";
+
+void loadStops(String ligne, BuildContext context) async {
+
+  List <String> stopNames = [];
 
   final csvList = await _loadCSV("assets/stopsCotentin.csv");
 
@@ -20,20 +30,23 @@ Future<void> loadStops() async {
   for (List<dynamic> row in csvList) {
     // Vérifier si la colonne "ligne" contient 1
     if (row[1].toString() == ligne) {
-      stopNames = row[2].toString();
-      print(stopNames);
-
-    }
-      // Ajouter le nom de l'arrêt à l'ensemble
+      stopNames.add(row[2].toString());
     }
   }
 
-// Afficher les noms d'arrêt dans l'ensemble
+  Navigator.pushReplacement(
+    context,
+      PageRouteBuilder(
+          pageBuilder: (_,__,___) => ArretsPage(arrets: stopNames)
+      )
+  );
 
-
+}
 
 
 class SearchPage extends StatefulWidget {
+
+
   const SearchPage({Key? key}) : super(key: key);
 
   @override
@@ -87,7 +100,7 @@ class _SearchPageState extends State<SearchPage> {
           final route = event['route'];
 
           return GestureDetector(
-            onTap: () => loadStops(),
+            //onTap: () => getLigne(index + 1, context),
               child : Card(
               child: ListTile(
                 leading: Image.asset("assets/images/$logo"),

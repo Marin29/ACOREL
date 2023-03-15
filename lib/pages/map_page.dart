@@ -52,6 +52,14 @@ import 'package:apli1/src/gtfs.dart' as gtfs;
 
 import '../main.dart';
 
+import 'dart:math';
+
+String selectRandom(List<String> items) {
+  final random = Random();
+  final index = random.nextInt(items.length);
+  return items[index];
+}
+
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
 
@@ -61,7 +69,7 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
 
-
+  final affluences = ["nulle","faible", "moyenne", "forte", "très forte"];
 
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
@@ -80,12 +88,13 @@ class _MapPageState extends State<MapPage> {
 
       for (final vehicle in vehiclesInfo) {
 
+        final affluence = selectRandom(affluences);
         final marker = Marker(
           markerId: MarkerId(vehicle.id),
           position: LatLng(vehicle.latitude, vehicle.longitude),
           infoWindow: InfoWindow(
-            title: "Ligne : ${vehicle.route}" ,
-            snippet : "Destination : ${vehicle.destination}",
+            title: "Ligne ${vehicle.route} Destination : ${vehicle.destination}",
+            snippet : "affluence : $affluence",
 
           ),
           icon: vehicle.color,
