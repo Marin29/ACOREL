@@ -1,4 +1,37 @@
 import'package:flutter/material.dart';
+import 'package:csv/csv.dart';
+import 'package:apli1/src/gtfs.dart';
+import 'package:flutter/services.dart';
+
+Future<List<List>> _loadCSV(String csvPath) async {
+  final _rawData = await rootBundle.loadString(csvPath);
+  final list = await CsvToListConverter().convert(_rawData);
+  return list;
+}
+
+
+Future<void> loadStops() async {
+  String stopNames = "";
+  String ligne = "1";
+
+  final csvList = await _loadCSV("assets/stopsCotentin.csv");
+
+// Parcourir chaque ligne du CSV
+  for (List<dynamic> row in csvList) {
+    // Vérifier si la colonne "ligne" contient 1
+    if (row[1].toString() == ligne) {
+      stopNames = row[2].toString();
+      print(stopNames);
+
+    }
+      // Ajouter le nom de l'arrêt à l'ensemble
+    }
+  }
+
+// Afficher les noms d'arrêt dans l'ensemble
+
+
+
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -53,12 +86,16 @@ class _SearchPageState extends State<SearchPage> {
           final intitule = event['intitule'];
           final route = event['route'];
 
-          return Card(
+          return GestureDetector(
+            onTap: () => loadStops(),
+              child : Card(
               child: ListTile(
                 leading: Image.asset("assets/images/$logo"),
                 title: Text("$intitule"),
                 subtitle: Text("$route"),
                 trailing: const Icon(Icons.arrow_forward_ios),
+              )
+
               )
           );
         },
