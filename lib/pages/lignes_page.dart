@@ -5,22 +5,20 @@ import 'package:flutter/services.dart';
 
 import 'arrets_page.dart';
 
-
-void getLigne(int index, BuildContext context){
-  final ligne = index.toString();
-
-  loadStops(ligne, context);
-}
-
 Future<List<List>> _loadCSV(String csvPath) async {
   final _rawData = await rootBundle.loadString(csvPath);
   final list = await CsvToListConverter().convert(_rawData);
   return list;
 }
 
+Future<List> getArrets(String ligne)  async {
+  final arrets = await loadStops(ligne);
 
+  return arrets;
+}
 
-void loadStops(String ligne, BuildContext context) async {
+Future<List<String>> loadStops(String ligne) async {
+
 
   List <String> stopNames = [];
 
@@ -31,17 +29,26 @@ void loadStops(String ligne, BuildContext context) async {
     // Vérifier si la colonne "ligne" contient 1
     if (row[1].toString() == ligne) {
       stopNames.add(row[2].toString());
+
     }
   }
+  print(stopNames);
 
-  Navigator.pushReplacement(
-    context,
-      PageRouteBuilder(
-          pageBuilder: (_,__,___) => ArretsPage(arrets: stopNames)
-      )
-  );
+  return stopNames;
 
 }
+
+
+Future<List<String>> getLigne(int index) async {
+  final ligne = (index + 1 ).toString();
+
+  final arrets = await loadStops(ligne);
+
+  print("test 1");
+
+  return arrets;
+}
+
 
 
 class SearchPage extends StatefulWidget {
@@ -55,6 +62,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
 
+  final ligne1 = 1;
   final events =[
     {
       "intitule": "Ligne 1",
@@ -99,8 +107,15 @@ class _SearchPageState extends State<SearchPage> {
           final intitule = event['intitule'];
           final route = event['route'];
 
+
           return GestureDetector(
-            //onTap: () => getLigne(index + 1, context),
+            onTap: () =>
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        pageBuilder: (_,__,___) => ArretsPage()
+                    )
+                ),
               child : Card(
               child: ListTile(
                 leading: Image.asset("assets/images/$logo"),

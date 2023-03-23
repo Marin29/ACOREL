@@ -1,4 +1,5 @@
 import 'package:apli1/pages/add_page.dart';
+import 'package:apli1/pages/arrets_page.dart';
 import 'package:apli1/pages/home_page.dart';
 import 'package:apli1/pages/lignes_page.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,6 @@ class _MyAppState extends State<MyApp> {
           SearchPage(),
           MapPage(),
           Add()
-
           
         ][_currentIndex],
 

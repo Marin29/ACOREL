@@ -54,7 +54,7 @@ import '../main.dart';
 
 import 'dart:math';
 
-String selectRandom(List<String> items) {
+Text selectRandom(List items) {
   final random = Random();
   final index = random.nextInt(items.length);
   return items[index];
@@ -69,7 +69,45 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
 
-  final affluences = ["nulle","faible", "moyenne", "forte", "très forte"];
+
+
+  Text nulle = new Text(
+    "très faible",
+    style: TextStyle(
+      color: Colors.blueGrey,
+    ),
+  );
+
+  Text faible = new Text(
+    "faible",
+    style: TextStyle(
+      color: Colors.green,
+    ),
+  );
+
+
+  Text moyenne = new Text(
+    "moyenne",
+    style: TextStyle(
+      color: Colors.orange,
+    ),
+  );
+
+
+  Text forte = new Text(
+    "forte",
+    style: TextStyle(
+      color: Colors.deepOrange,
+    ),
+  );
+
+  Text tresforte = new Text(
+    "très forte",
+    style: TextStyle(
+      color: Colors.red,
+    ),
+  );
+
 
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
@@ -81,9 +119,14 @@ class _MapPageState extends State<MapPage> {
         "assets/images/bus_marker.png"
     );
 
+    
+
 
 
     setState(() {
+
+      final affluences = [nulle, faible,moyenne, forte, tresforte];
+
       _markers.clear();
 
       for (final vehicle in vehiclesInfo) {
@@ -93,8 +136,8 @@ class _MapPageState extends State<MapPage> {
           markerId: MarkerId(vehicle.id),
           position: LatLng(vehicle.latitude, vehicle.longitude),
           infoWindow: InfoWindow(
-            title: "Ligne ${vehicle.route} Destination : ${vehicle.destination}",
-            snippet : "affluence : $affluence",
+            title: "Ligne : ${vehicle.route} Destination : ${vehicle.destination}",
+            snippet : affluence.toString(),
 
           ),
           icon: vehicle.color,
@@ -103,7 +146,8 @@ class _MapPageState extends State<MapPage> {
         _markers[vehicle.id] = marker;
       }
 
-    });
+    }
+    );
   }
 
   @override
