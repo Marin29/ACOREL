@@ -29,26 +29,29 @@ Future<List<String>> loadStops(String ligne) async {
 // Parcourir chaque ligne du CSV
   for (List<dynamic> row in csvList) {
     // Vérifier si la colonne "ligne" contient 1
-    if (row[1].toString() == ligne) {
+    if (row[1].toString().contains(ligne)) {
       stopNames.add(row[2].toString());
 
     }
   }
 
-  return stopNames;
+  final arretsFinal = stopNames.toSet().toList();
+
+  return arretsFinal;
 
 }
 
 
 Future<List<String>> getLigne(int index) async {
 
-  final ligne = (index + 1 ).toString();
+  final ligne = (index).toString();
 
   final arrets = await loadStops(ligne);
 
   print("test 1");
+  final arretsFinal = arrets.toSet().toList();
 
-  return arrets;
+  return arretsFinal;
 }
 
 
