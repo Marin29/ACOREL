@@ -54,7 +54,7 @@ import '../main.dart';
 
 import 'dart:math';
 
-Text selectRandom(List items) {
+String selectRandom(List items) {
   final random = Random();
   final index = random.nextInt(items.length);
   return items[index];
@@ -125,7 +125,7 @@ class _MapPageState extends State<MapPage> {
 
     setState(() {
 
-      final affluences = [nulle, faible,moyenne, forte, tresforte];
+      final affluences = ["nulle", "faible","moyenne", "forte", "très forte"];
 
       _markers.clear();
 
@@ -137,7 +137,7 @@ class _MapPageState extends State<MapPage> {
           position: LatLng(vehicle.latitude, vehicle.longitude),
           infoWindow: InfoWindow(
             title: "Ligne : ${vehicle.route} Destination : ${vehicle.destination}",
-            snippet : affluence.toString(),
+            snippet : "affluence : $affluence",
 
           ),
           icon: vehicle.color,

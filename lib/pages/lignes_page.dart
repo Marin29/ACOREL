@@ -5,6 +5,14 @@ import 'package:flutter/services.dart';
 
 import 'arrets_page.dart';
 
+
+class Arrets {
+
+  final List<String> arrets;
+
+  Arrets(this.arrets);
+}
+
 Future<List<List>> _loadCSV(String csvPath) async {
   final _rawData = await rootBundle.loadString(csvPath);
   final list = await CsvToListConverter().convert(_rawData);
@@ -33,6 +41,7 @@ Future<List<String>> loadStops(String ligne) async {
 
 
 Future<List<String>> getLigne(int index) async {
+
   final ligne = (index + 1 ).toString();
 
   final arrets = await loadStops(ligne);
@@ -90,11 +99,16 @@ class _SearchPageState extends State<SearchPage> {
 
   ];
 
+  List arretsTout = [];
   List arrets = [];
+
 
   void getArrets() async {
 
     arrets = await loadStops("1");
+    arretsTout.add(arrets);
+    arrets = await loadStops("2");
+    arretsTout.add(arrets);
 
     setState(() {});
 
@@ -130,7 +144,7 @@ class _SearchPageState extends State<SearchPage> {
                       children :  [
                          Column (
                            children : [
-                             for (final arret in arrets)
+                             for (final arret in arretsTout[index])
                               ListTile(
                                 title: Text(arret.toString()),
                               )
