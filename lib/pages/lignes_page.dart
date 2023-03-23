@@ -11,12 +11,6 @@ Future<List<List>> _loadCSV(String csvPath) async {
   return list;
 }
 
-Future<List> getArrets(String ligne)  async {
-  final arrets = await loadStops(ligne);
-
-  return arrets;
-}
-
 Future<List<String>> loadStops(String ligne) async {
 
 
@@ -32,7 +26,6 @@ Future<List<String>> loadStops(String ligne) async {
 
     }
   }
-  print(stopNames);
 
   return stopNames;
 
@@ -96,8 +89,20 @@ class _SearchPageState extends State<SearchPage> {
     }
 
   ];
+
+  List arrets = [];
+
+  void getArrets() async {
+
+    arrets = await loadStops("1");
+
+    setState(() {});
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    getArrets();
     return Center(
       child: ListView.builder(
         itemCount: events.length,
@@ -109,23 +114,33 @@ class _SearchPageState extends State<SearchPage> {
 
 
           return GestureDetector(
-            onTap: () =>
+            /*onTap: () =>
                 Navigator.push(
                     context,
                     PageRouteBuilder(
                         pageBuilder: (_,__,___) => ArretsPage()
                     )
-                ),
+                ),*/
               child : Card(
-              child: ListTile(
-                leading: Image.asset("assets/images/$logo"),
-                title: Text("$intitule"),
-                subtitle: Text("$route"),
-                trailing: const Icon(Icons.arrow_forward_ios),
+                  child: ExpansionTile(
+                      leading: Image.asset("assets/images/$logo"),
+                      title: Text("$intitule"),
+                      subtitle: Text("$route"),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      children :  [
+                         Column (
+                           children : [
+                             for (final arret in arrets)
+                              ListTile(
+                                title: Text(arret.toString()),
+                              )
+                           ]
+                        )
+                      ]
+                  )
               )
 
-              )
-          );
+              );
         },
 
       ),

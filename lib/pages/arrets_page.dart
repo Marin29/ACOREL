@@ -91,7 +91,9 @@ Widget build(BuildContext context) {
     }
 
 return MaterialApp(
-    home :  ListView.builder(
+    home :  Scaffold(
+
+    body : ListView.builder(
 
         itemCount: arrets.length,
         itemBuilder: (context, index){
@@ -106,6 +108,7 @@ return MaterialApp(
               )
           );
         },
+    ),
     ),
     );
   }
