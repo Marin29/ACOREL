@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
 
             BottomNavigationBarItem(
                 icon: Icon(Icons.train),
-                label: 'Lignes'
+                label: 'Arrêts'
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.map),
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.add),
-                label: 'Ajouter'
+                label: 'Rechercher'
             )
           ],
         ),

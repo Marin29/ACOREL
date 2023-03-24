@@ -50,7 +50,7 @@ Future<String> getStatut(String statut, String stopId) async {
   String arrive = "INCOMING_AT";
   final csvList = await _loadCSV("assets/stopsCotentin.csv");
   if(statut == enRoute) {
-    statut = "en route vers ";
+    statut = "en route vers l'arrêt ";
 
   }
   else if (statut == arret) {
