@@ -112,6 +112,8 @@ class _SearchPageState extends State<SearchPage> {
     arretsTout.add(arrets);
     arrets = await loadStops("2");
     arretsTout.add(arrets);
+    arrets = await loadStops("3");
+    arretsTout.add(arrets);
 
     setState(() {});
 
