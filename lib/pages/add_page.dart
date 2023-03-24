@@ -11,7 +11,7 @@ class Add extends StatefulWidget {
 class _AddState extends State<Add> {
   final _formKey = GlobalKey<FormState>();
   final ligneNameController = TextEditingController();
-  String selectedType='metro';
+  int? selectedType;
   DateTime selectedDate = DateTime.now();
 
   @override
@@ -52,11 +52,17 @@ class _AddState extends State<Add> {
               margin: const EdgeInsets.only(bottom: 10),
               child: DropdownButtonFormField(
                   items: const [
-                    DropdownMenuItem(value: 'metro', child: Text("métro")),
-                    DropdownMenuItem(value: 'tram', child: Text("tramway"))
+                    DropdownMenuItem(value: 1, child: Text("ligne 01")),
+                    DropdownMenuItem(value: 2, child: Text("ligne 02")),
+                    DropdownMenuItem(value: 3, child: Text("ligne 03")),
+                    DropdownMenuItem(value: 4, child: Text("ligne 04")),
+                    DropdownMenuItem(value: 5, child: Text("ligne 05")),
+                    DropdownMenuItem(value: 6, child: Text("ligne 06"))
                   ],
                   decoration: const InputDecoration(
+                      hintText: 'choisir une ligne',
                     border: OutlineInputBorder()
+
                   ),
                   value: selectedType,
                   onChanged: (value){

@@ -163,7 +163,9 @@ class _MapPageState extends State<MapPage> {
           markers: _markers.values.toSet(),
 
         ),
-    floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton:Container(
+        margin: EdgeInsetsDirectional.only(top: 10.0, start: 10.0, end: 138.0, bottom: 3.0),
+     child : FloatingActionButton.extended(
         backgroundColor : Colors.red,
         onPressed: ()=> {
         Navigator.push(
@@ -178,8 +180,8 @@ class _MapPageState extends State<MapPage> {
     label: const Text('Actualiser'),
     icon: const Icon(Icons.refresh),
 
-    ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+     ) ),
+
 
     );
 
