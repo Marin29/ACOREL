@@ -142,14 +142,23 @@ class _SearchPageState extends State<SearchPage> {
                   child: ExpansionTile(
                       leading: Image.asset("assets/images/$logo"),
                       title: Text("$intitule"),
+                      textColor : Colors.red,
+                      iconColor : Colors.red,
                       subtitle: Text("$route"),
-                      trailing: const Icon(Icons.arrow_forward_ios),
                       children :  [
                          Column (
                            children : [
                              for (final arret in arretsTout[index])
-                              ListTile(
+                              ExpansionTile(
                                 title: Text(arret.toString()),
+                                textColor : Colors.red,
+                                  iconColor : Colors.red,
+                                  children : [
+                                  ListTile(
+                                      title : Text("bip boup ceci est un test")
+                                  )
+
+                                ]
                               )
                            ]
                         )

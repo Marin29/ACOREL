@@ -137,7 +137,7 @@ class _MapPageState extends State<MapPage> {
           position: LatLng(vehicle.latitude, vehicle.longitude),
           infoWindow: InfoWindow(
             title: "Ligne : ${vehicle.route} Destination : ${vehicle.destination}",
-            snippet : "affluence : $affluence",
+            snippet : "affluence : $affluence     statut :  ${vehicle.statut}",
 
           ),
           icon: vehicle.color,

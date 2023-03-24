@@ -12,9 +12,10 @@ class VehicleInfo {
   final double latitude;
   final double longitude;
   final String destination;
+  final String statut;
   final BitmapDescriptor color;
 
-  VehicleInfo(this.id, this.route, this.latitude, this.longitude, this.destination, this.color);
+  VehicleInfo(this.id, this.route, this.latitude, this.longitude, this.destination, this.color, this.statut);
 }
 
 String strip(String str, String charactersToRemove){
@@ -43,7 +44,30 @@ String? getRouteLongNameFromId(String routeId, List<dynamic> csvList) {
   return "INCONNU";
 }
 
+Future<String> getStatut(String statut, String stopId) async {
+  String enRoute = "IN_TRANSIT_TO";
+  String arret = "STOPPED_AT";
+  String arrive = "INCOMING_AT";
+  final csvList = await _loadCSV("assets/stopsCotentin.csv");
+  if(statut == enRoute) {
+    statut = "en route vers ";
 
+  }
+  else if (statut == arret) {
+    statut = "stoppé à l'arrêt ";
+  }
+
+  else if(statut == arrive) {
+    statut = "arrive à l'arrêt ";
+  }
+
+  for (List<dynamic> row in csvList) {
+    if (stopId == row[0].toString()) {
+      statut = statut + row[2].toString();
+    }
+  }
+  return statut;
+}
 
 Future<BitmapDescriptor> getColor(String routeId) async {
 
@@ -157,10 +181,11 @@ Future<List<VehicleInfo>> getData() async {
       final latitude = vehiclePosition.latitude;
       final longitude = vehiclePosition.longitude;
       final destination = getRouteLongNameFromId(entity.vehicle.trip.routeId, routeCsv);
-      print(destination);
+      final statut =  await getStatut((entity.vehicle.currentStatus).toString(), entity.vehicle.stopId);
+      print (statut);
 
       final vehicleInfo = VehicleInfo(
-          vehicleId, routeId!, latitude, longitude, destination!, color);
+          vehicleId, routeId!, latitude, longitude, destination!, color, statut);
       vehicleInfos.add(vehicleInfo);
     }
   }
