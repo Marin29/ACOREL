@@ -12,45 +12,20 @@ import 'map_page.dart';
 //import 'package:apli1/pages/lignes_page.dart' as lignesPage;
 
 
-final ligne1 = "1";
-//final async arrets = await loadStops(ligne1) ;
+
+void getSelection (String selection){
 
 
-Future<List<List>> _loadCSV(String csvPath) async {
-  final _rawData = await rootBundle.loadString(csvPath);
-  final list = await CsvToListConverter().convert(_rawData);
-  return list;
+  setState(){};
 }
-
-
-
-
-Future<List<String>> loadStops(String ligne) async {
-
-  List <String> stopNames = [];
-
-  final csvList = await _loadCSV("assets/stopsCotentin.csv");
-
-// Parcourir chaque ligne du CSV
-  for (List<dynamic> row in csvList) {
-    // Vérifier si la colonne "ligne" contient 1
-    if (row[1].toString() == ligne) {
-      stopNames.add(row[2].toString());
-
-    }
-  }
-
-  return stopNames;
-
-}
-
 
 
 
 class ArretsPage extends StatefulWidget {
 
 
-  const ArretsPage({Key? key}) : super(key: key);
+  final String selection;
+  ArretsPage({required this.selection});
 
 
   @override
@@ -62,47 +37,33 @@ class ArretsPage extends StatefulWidget {
 
 class ArretsPageState extends State<ArretsPage> {
 
-final ligne1 = "1";
-List arrets = [];
+  late String selection;
 
-
-
-void getArrets() async {
-
-arrets = await loadStops("1");
-
-
-  setState(() {});
-
-}
+  @override
+  void initState() {
+    super.initState();
+    selection = widget.selection;
+  }
 
   @override
 
 Widget build(BuildContext context) {
-    getArrets();
-    print(arrets);
 
-    int _currentIndex = 3;
 
-    setCurrentIndex(int index){
-      setState(() {
-        _currentIndex=index;
-      });
-    }
 
 return MaterialApp(
     home :  Scaffold(
 
     body : ListView.builder(
 
-        itemCount: arrets.length,
+        itemCount: 2,
         itemBuilder: (context, index){
 
           return GestureDetector(
               //onTap: () => ,
               child : Card(
                   child: ListTile(
-                    title: Text(arrets[index].toString()),
+                    title: Text("$selection"),
                   )
 
               )

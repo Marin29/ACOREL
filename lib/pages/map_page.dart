@@ -71,42 +71,6 @@ class _MapPageState extends State<MapPage> {
 
 
 
-  Text nulle = new Text(
-    "très faible",
-    style: TextStyle(
-      color: Colors.blueGrey,
-    ),
-  );
-
-  Text faible = new Text(
-    "faible",
-    style: TextStyle(
-      color: Colors.green,
-    ),
-  );
-
-
-  Text moyenne = new Text(
-    "moyenne",
-    style: TextStyle(
-      color: Colors.orange,
-    ),
-  );
-
-
-  Text forte = new Text(
-    "forte",
-    style: TextStyle(
-      color: Colors.deepOrange,
-    ),
-  );
-
-  Text tresforte = new Text(
-    "très forte",
-    style: TextStyle(
-      color: Colors.red,
-    ),
-  );
 
 
   final Map<String, Marker> _markers = {};

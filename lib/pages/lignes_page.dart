@@ -19,6 +19,21 @@ Future<List<List>> _loadCSV(String csvPath) async {
   return list;
 }
 
+
+
+List getDestinations(String routeId) {
+
+  List destination = [];
+
+      destination.add(routeId.split("<>")[0].trim()) ;
+      destination.add(routeId.split("<>")[1].trim()) ;
+
+  return destination;
+
+}
+
+
+
 Future<List<String>> loadStops(String ligne) async {
 
 
@@ -104,6 +119,7 @@ class _SearchPageState extends State<SearchPage> {
 
   List arretsTout = [];
   List arrets = [];
+  String selectionArret = "";
 
 
   void getArrets() async {
@@ -136,6 +152,8 @@ class _SearchPageState extends State<SearchPage> {
           final logo = event['logo'];
           final intitule = event['intitule'];
           final route = event['route'];
+          List selectionRoute = getDestinations(route!);
+
 
 
           return GestureDetector(
@@ -161,10 +179,23 @@ class _SearchPageState extends State<SearchPage> {
                                 title: Text(arret.toString()),
                                 textColor : Colors.red,
                                   iconColor : Colors.red,
+
                                   children : [
-                                  ListTile(
-                                      title : Text("bip boup ceci est un test")
-                                  )
+                                    for (int i = 0; i <2; i++)
+                                      ListTile(
+                                          onTap: () {
+                                            //String selectionArret = selectionRoute[index];
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ArretsPage(
+                                                            selection: selectionRoute[i])
+                                                )
+                                            );
+                                          },
+                                          title: Text("Direction ${selectionRoute[i]}")
+                                      )
 
                                 ]
                               )
