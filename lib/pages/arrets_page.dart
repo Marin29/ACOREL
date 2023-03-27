@@ -13,14 +13,6 @@ import 'map_page.dart';
 
 
 
-void getSelection (String selection){
-
-
-  setState(){};
-}
-
-
-
 class ArretsPage extends StatefulWidget {
 
 
@@ -36,7 +28,7 @@ class ArretsPage extends StatefulWidget {
 
 }
 
-//blabladjzgdkhgezj
+
 
 class ArretsPageState extends State<ArretsPage> {
 
