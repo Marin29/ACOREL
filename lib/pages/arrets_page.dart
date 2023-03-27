@@ -24,8 +24,10 @@ void getSelection (String selection){
 class ArretsPage extends StatefulWidget {
 
 
-  final String selection;
-  ArretsPage({required this.selection});
+  final String direction;
+  final String arret;
+  final String ligne;
+  ArretsPage({required this.direction, required this.arret, required this.ligne});
 
 
   @override
@@ -37,12 +39,16 @@ class ArretsPage extends StatefulWidget {
 
 class ArretsPageState extends State<ArretsPage> {
 
-  late String selection;
+  late String direction;
+  late String arret;
+  late String ligne;
 
   @override
   void initState() {
     super.initState();
-    selection = widget.selection;
+    direction = widget.direction;
+    arret = widget.arret;
+    ligne = widget.ligne;
   }
 
   @override
@@ -63,7 +69,8 @@ return MaterialApp(
               //onTap: () => ,
               child : Card(
                   child: ListTile(
-                    title: Text("$selection"),
+                    title: Text("$direction"),
+                    trailing: Text("$arret"),
                   )
 
               )

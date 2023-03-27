@@ -144,6 +144,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     getArrets();
+
     return Center(
       child: ListView.builder(
         itemCount: events.length,
@@ -155,7 +156,6 @@ class _SearchPageState extends State<SearchPage> {
           List selectionRoute = getDestinations(route!);
 
 
-
           return GestureDetector(
             /*onTap: () =>
                 Navigator.push(
@@ -165,6 +165,7 @@ class _SearchPageState extends State<SearchPage> {
                     )
                 ),*/
               child : Card(
+
                   child: ExpansionTile(
                       leading: Image.asset("assets/images/$logo"),
                       title: Text("$intitule"),
@@ -189,9 +190,9 @@ class _SearchPageState extends State<SearchPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        ArretsPage(
-                                                            selection: selectionRoute[i])
-                                                )
+                                                ArretsPage(direction: selectionRoute[i], arret: arret.toString(), ligne : route),
+
+                                            )
                                             );
                                           },
                                           title: Text("Direction ${selectionRoute[i]}")
