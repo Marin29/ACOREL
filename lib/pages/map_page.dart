@@ -54,11 +54,6 @@ import '../main.dart';
 
 import 'dart:math';
 
-String selectRandom(List items) {
-  final random = Random();
-  final index = random.nextInt(items.length);
-  return items[index];
-}
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -95,13 +90,12 @@ class _MapPageState extends State<MapPage> {
 
       for (final vehicle in vehiclesInfo) {
 
-        final affluence = selectRandom(affluences);
         final marker = Marker(
           markerId: MarkerId(vehicle.id),
           position: LatLng(vehicle.latitude, vehicle.longitude),
           infoWindow: InfoWindow(
             title: "Ligne : ${vehicle.route} Destination : ${vehicle.destination}",
-            snippet : "affluence : $affluence     statut :  ${vehicle.statut}",
+            snippet : "affluence : ${vehicle.affluence}     statut :  ${vehicle.statut}",
 
           ),
           icon: vehicle.color,

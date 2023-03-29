@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -13,9 +15,10 @@ class VehicleInfo {
   final double longitude;
   final String destination;
   final String statut;
+  final String affluence;
   final BitmapDescriptor color;
 
-  VehicleInfo(this.id, this.route, this.latitude, this.longitude, this.destination, this.color, this.statut);
+  VehicleInfo(this.id, this.route, this.latitude, this.longitude, this.destination, this.color, this.statut, this.affluence);
 }
 
 String strip(String str, String charactersToRemove){
@@ -68,6 +71,14 @@ Future<String> getStatut(String statut, String stopId) async {
   }
   return statut;
 }
+
+
+String selectRandom(List items) {
+  final random = Random();
+  final index = random.nextInt(items.length);
+  return items[index];
+}
+
 
 Future<BitmapDescriptor> getColor(String routeId) async {
 
@@ -168,6 +179,8 @@ Future<List<VehicleInfo>> getData() async {
 
   final vehicleInfos = <VehicleInfo>[];
 
+  final affluences = ["nulle", "faible","moyenne", "forte", "très forte"];
+
 
   //print(feedMessage.entity.toString());
 
@@ -175,6 +188,7 @@ Future<List<VehicleInfo>> getData() async {
     final vehiclePosition = entity.vehicle?.position;
     final vehicleId = entity.vehicle?.vehicle?.id;
     final routeId = entity.vehicle?.trip?.routeId;
+    final affluence = selectRandom(affluences);
 
     final color = await getColor(routeId!);
     if (vehiclePosition != null && vehicleId != null) {
@@ -182,10 +196,10 @@ Future<List<VehicleInfo>> getData() async {
       final longitude = vehiclePosition.longitude;
       final destination = getRouteLongNameFromId(entity.vehicle.trip.routeId, routeCsv);
       final statut =  await getStatut((entity.vehicle.currentStatus).toString(), entity.vehicle.stopId);
-      print (statut);
+      //print (statut);
 
       final vehicleInfo = VehicleInfo(
-          vehicleId, routeId!, latitude, longitude, destination!, color, statut);
+          vehicleId, routeId!, latitude, longitude, destination!, color, statut, affluence);
       vehicleInfos.add(vehicleInfo);
     }
   }
