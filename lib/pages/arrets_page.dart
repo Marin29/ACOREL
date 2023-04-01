@@ -37,6 +37,7 @@ class ArretsPageState extends State<ArretsPage> {
   late String ligne;
   List vehiculeInfos = [];
 
+
   @override
   void initState() {
     getGTFS();
@@ -77,29 +78,74 @@ class ArretsPageState extends State<ArretsPage> {
 Widget build(BuildContext context) {
 
 List Boup = getAffluence(vehiculeInfos, direction, arret);
+Boup.add("faible");
+List Ordre = ["Prochain", "Suivant", "Puis"];
 
 return MaterialApp(
     home :  Scaffold(
 
-    body : ListView.builder(
+    body : Column(
 
-        itemCount: 2,
+        children: [
+
+          Padding(
+    padding: const EdgeInsets.only(top: 45),
+      child: Text(
+        'Arrêt ${arret.toLowerCase()} direction $direction',
+        style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),
+        textAlign: TextAlign.center,
+
+      ),
+    ),
+    Expanded(
+    child: ListView.builder(
+
+        itemCount: 3,
+
         itemBuilder: (context, index){
 
-          return GestureDetector(
-              //onTap: () => ,
-              child : Card(
+          String affluenceListe = Boup[index];
+
+          Widget image;
+          switch(affluenceListe){
+
+            case 'nulle':
+              image  = Image.asset("assets/images/tres_faible.png");
+              break;
+            case 'faible':
+              image  = Image.asset("assets/images/faible.png");
+              break;
+            case 'moyenne':
+              image  = Image.asset("assets/images/moyenne.png");
+              break;
+            case 'forte':
+              image  = Image.asset("assets/images/forte.png");
+              break;
+            case 'très forte':
+              image  = Image.asset("assets/images/tres_forte.png");
+              break;
+              default:
+                image  = Image.asset("assets/images/moyenne.png");
+
+          }
+
+              return Card(
                   child: ListTile(
-                    title: Text("$direction"),
-                    trailing: Text("${Boup[1]}"),
+                    title : Text("${Ordre[index]}"),
+                    subtitle: Text("2 minutes"),
+                    trailing: image,
                   )
 
-              )
-          );
+              );
         },
     ),
     ),
+        ],
+
+    ),
+    ),
     );
+
   }
 }
 
