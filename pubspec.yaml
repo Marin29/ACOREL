@@ -78,6 +78,7 @@ flutter:
      - assets/arrets.csv
      - assets/routesCotentin.csv
      - assets/stopsCotentin.csv
+     - assets/stop_times.csv
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
