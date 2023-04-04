@@ -40,7 +40,7 @@ class ArretsPageState extends State<ArretsPage> {
   late String stopId;
   late List Schedule;
   List vehiculeInfos = [];
-  List ArrivalTime = [];
+  List ArrivalTime = ["en cours de calcul","en cours de calcul", "en cours de calcul" ];
 
 
 
@@ -77,8 +77,10 @@ class ArretsPageState extends State<ArretsPage> {
   void getGTFS() async {
     vehiculeInfos = await gtfs.getData();
     stopId = (await getIdFromName(arret))!;
-    ArrivalTime.add(await getArrivalTime(stopId));
-    ArrivalTime.add(await getArrivalTime2(stopId));
+    ArrivalTime[0] = await getArrivalTime(stopId);
+    ArrivalTime[1] = (await getArrivalTime2(stopId));
+    ArrivalTime[2] = (await getArrivalTime2(stopId)) + 26;
+
 
 
     /*for(final vehicle in vehiculeInfos){
@@ -165,6 +167,8 @@ Widget build(BuildContext context) {
 
 List Boup = getAffluence(vehiculeInfos, direction, arret);
 Boup.add("faible");
+Boup.add("moyenne");
+
 List Ordre = ["Prochain", "Suivant", "Puis"];
 
 return MaterialApp(
@@ -186,7 +190,7 @@ return MaterialApp(
     Expanded(
     child: ListView.builder(
 
-        itemCount: 2,
+        itemCount: 3,
 
         itemBuilder: (context, index){
 
