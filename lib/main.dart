@@ -42,8 +42,7 @@ class _MyAppState extends State<MyApp> {
         const  [
           SearchPage(),
           MapPage(),
-          Add()
-          
+
         ][_currentIndex],
 
         bottomNavigationBar: BottomNavigationBar(
@@ -63,10 +62,6 @@ class _MyAppState extends State<MyApp> {
                 icon: Icon(Icons.map),
               label: 'Carte'
             ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.add),
-                label: 'Rechercher'
-            )
           ],
         ),
       ),
