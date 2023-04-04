@@ -2,6 +2,7 @@ import 'package:apli1/pages/lignes_page.dart';
 import 'package:flutter/material.dart';
 import 'package:apli1/pages/map_page.dart';
 import 'package:apli1/src/gtfs.dart';
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 
 
 void main(){
@@ -40,22 +41,26 @@ class _MyAppState extends State<MyApp> {
 
         ][_currentIndex],
 
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: CustomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index)=>setCurrentIndex(index),
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.black,
-          iconSize: 40,
+          selectedColor: Colors.red,
+          unSelectedColor: Colors.black,
+          iconSize: 38,
           elevation: 15,
-          items: const [
+          isFloating: false,
+          bubbleCurve: Curves.bounceIn,
+          scaleCurve: Curves.bounceInOut,
+          strokeColor: Colors.red,
+          items: [
 
-            BottomNavigationBarItem(
+            CustomNavigationBarItem(
                 icon: Icon(Icons.train),
-                label: 'Arrêts'
+                title: Text('Arrêts')
             ),
-            BottomNavigationBarItem(
+            CustomNavigationBarItem(
                 icon: Icon(Icons.map),
-              label: 'Carte'
+                title: Text('Carte')
             ),
           ],
         ),

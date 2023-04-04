@@ -42,6 +42,8 @@ dependencies:
   gtfs_realtime_bindings: ^1.0.1
   csv: ^5.0.1
   custom_info_window: ^1.0.1
+  custom_navigation_bar: ^0.8.2
+  flutter_launcher_icons: ^0.12.0
 
 
 
@@ -58,6 +60,11 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   build_runner: ^2.3.3
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo_acomoove.jpg"
 
 
 # For information on the generic Dart part of this file, see the
