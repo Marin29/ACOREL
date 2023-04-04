@@ -8,8 +8,10 @@ import 'package:apli1/src/gtfs.dart';
 
 
 void main(){
-  runApp(const MaterialApp(home : MyApp() ));
+  runApp(const MaterialApp(home : MyApp(), debugShowCheckedModeBanner: false,
+  ));
   getData();
+
 
   
 }
@@ -30,10 +32,14 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+
       home: Scaffold(
 
-        body: const  [
+        body:
+        const  [
           SearchPage(),
           MapPage(),
           Add()
@@ -64,6 +70,7 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
       ),
+
     );
   }
 }

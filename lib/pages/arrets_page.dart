@@ -79,7 +79,7 @@ class ArretsPageState extends State<ArretsPage> {
     stopId = (await getIdFromName(arret))!;
     ArrivalTime[0] = await getArrivalTime(stopId);
     ArrivalTime[1] = (await getArrivalTime2(stopId));
-    ArrivalTime[2] = (await getArrivalTime2(stopId)) + 26;
+    ArrivalTime[2] = (await getArrivalTime3(stopId)) + 10;
 
 
 
@@ -145,8 +145,25 @@ class ArretsPageState extends State<ArretsPage> {
         differences.add(updatedDateTime[i].difference(now).inMinutes);
       }
     }
+    print(differences[1]);
+    return differences[1];
+  }
+
+  int calculateArrivalTime3(List<List<dynamic>> data) {
+    DateTime now = DateTime.now();
+    List<DateTime> departures = data.map((row) => DateFormat('HH:mm:ss').parse((row[1]).toString())).toList();
+    departures.sort();
+    List differences = [];
+    List<DateTime> updatedDateTime = [];
+    for (var i = 0; i < departures.length; i++) {
+      updatedDateTime.add(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, departures[i].hour, departures[i].minute, departures[i].second));
+      //print (updatedDateTime);
+      if (updatedDateTime[i].isAfter(now)) {
+        differences.add(updatedDateTime[i].difference(now).inMinutes);
+      }
+    }
     print(differences[2]);
-    return differences[2] + 20;
+    return differences[2];
   }
 
   Future<int> getArrivalTime(String stopId) async {
@@ -161,13 +178,18 @@ class ArretsPageState extends State<ArretsPage> {
     return calculateArrivalTime2(filteredData);
   }
 
+  Future<int> getArrivalTime3(String stopId) async {
+    List<List<dynamic>> data = await loadCsv("assets/stop_times.csv");
+    List<List<dynamic>> filteredData = filterByStopId(data, stopId);
+    return calculateArrivalTime3(filteredData);
+  }
   @override
 
 Widget build(BuildContext context) {
-
+    final affluences = ["nulle", "faible","moyenne", "forte", "très forte"];
 List Boup = getAffluence(vehiculeInfos, direction, arret);
-Boup.add("faible");
-Boup.add("moyenne");
+Boup.add(gtfs.selectRandom(affluences));
+Boup.add(gtfs.selectRandom(affluences));
 
 List Ordre = ["Prochain", "Suivant", "Puis"];
 
