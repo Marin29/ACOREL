@@ -6,7 +6,7 @@ import 'package:apli1/src/gtfs.dart' as gtfs;
 import 'package:intl/intl.dart';
 
 
-import 'add_page.dart';
+
 import 'lignes_page.dart';
 import 'map_page.dart';
 

@@ -1,12 +1,30 @@
+import 'package:apli1/pages/lignes_page.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
+import '../src/gtfs.dart';
+import 'map_page.dart';
 
 //import 'lignes_page.dart';
 
-class Home extends StatelessWidget {
-  const Home({
-    super.key,
-  });
 
+
+void main(){
+  runApp(const MaterialApp(home : Home(), debugShowCheckedModeBanner: false,
+  ));
+  getData();
+
+
+
+}
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -34,7 +52,7 @@ class Home extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const Padding(padding: EdgeInsets.only(top: 45)),
-            /*ElevatedButton.icon(
+            ElevatedButton.icon(
                 style: const ButtonStyle(
                     padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
                     backgroundColor: MaterialStatePropertyAll(Colors.green)
@@ -43,7 +61,7 @@ class Home extends StatelessWidget {
                   Navigator.push(
                       context,
                       PageRouteBuilder(
-                          pageBuilder: (_,__,___) => LignesPage()
+                          pageBuilder: (_,__,___) => MyApp()
                       )
                   )
                 },
@@ -55,7 +73,7 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 icon: Icon(Icons.accessibility_new_outlined)
-            )*/
+            )
           ],
         )
     );
