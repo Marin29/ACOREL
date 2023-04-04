@@ -1,22 +1,14 @@
-import 'package:apli1/pages/lignes_page.dart';
 import 'package:flutter/material.dart';
-
 import '../main.dart';
 import '../src/gtfs.dart';
-import 'map_page.dart';
-
-//import 'lignes_page.dart';
-
 
 
 void main(){
   runApp(const MaterialApp(home : Home(), debugShowCheckedModeBanner: false,
   ));
   getData();
-
-
-
 }
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 

@@ -1,6 +1,5 @@
 import'package:flutter/material.dart';
 import 'package:csv/csv.dart';
-import 'package:apli1/src/gtfs.dart';
 import 'package:flutter/services.dart';
 
 import 'arrets_page.dart';

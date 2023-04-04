@@ -6,15 +6,6 @@ import 'package:apli1/src/gtfs.dart' as gtfs;
 import 'package:intl/intl.dart';
 
 
-
-import 'lignes_page.dart';
-import 'map_page.dart';
-
-
-//import 'package:apli1/pages/lignes_page.dart' as lignesPage;
-
-
-
 class ArretsPage extends StatefulWidget {
 
 
