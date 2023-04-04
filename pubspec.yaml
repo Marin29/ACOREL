@@ -42,6 +42,11 @@ dependencies:
   gtfs_realtime_bindings: ^1.0.1
   csv: ^5.0.1
   custom_info_window: ^1.0.1
+  firebase_core: ^1.6.0
+  firebase_auth: ^3.3.4
+  firebase_core_platform_interface: ^4.5.1
+  cloud_firestore: ^3.5.1
+  flutter_svg: ^2.0.4
 
 
 
