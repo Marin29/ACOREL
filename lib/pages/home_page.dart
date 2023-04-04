@@ -27,7 +27,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Scaffold(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -44,18 +45,22 @@ class _HomeState extends State<Home> {
                 textAlign: TextAlign.center,
               ),
             ),
-            const Text("Grâce à cette application vous pourrez connaître la position de vos transports en commun ainsi que leur taux d'occupation ",
+
+               Container(
+                 margin: EdgeInsets.all(20),
+                 child : Text("Gaëlle, Audrey, Nadir et Marin sont heureux de vous présenter leur application réalisée dans le cadre de leur PPE en partenariat avec Acorel ! Grâce à cette application vous pourrez connaître la position de vos transports en commun ainsi que leurs taux d'occupation ",
               style:
               TextStyle(
                   fontSize: 16
               ),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.justify,
+            ),
             ),
             const Padding(padding: EdgeInsets.only(top: 45)),
             ElevatedButton.icon(
                 style: const ButtonStyle(
                     padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
-                    backgroundColor: MaterialStatePropertyAll(Colors.green)
+                    backgroundColor: MaterialStatePropertyAll(Colors.red)
                 ),
                 onPressed: ()=> {
                   Navigator.push(
@@ -66,16 +71,17 @@ class _HomeState extends State<Home> {
                   )
                 },
                 label: const Text(
-                  "Afficher les lignes",
+                  "Lancer l'application",
                   style:
                   TextStyle(
                       fontSize: 15
                   ),
                 ),
-                icon: Icon(Icons.accessibility_new_outlined)
+                icon: Icon(Icons.play_arrow)
             )
           ],
         )
+      )
     );
   }
 }
