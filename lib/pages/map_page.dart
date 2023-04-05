@@ -97,8 +97,8 @@ class _MapPageState extends State<MapPage> {
 
           //Pop up qui s'affiche en cliquant sur un marqueur
           infoWindow: InfoWindow(
-            title: "Ligne : ${vehicle.route} Destination : ${vehicle.destination}",
-            snippet : "affluence : ${vehicle.affluence}     statut :  ${vehicle.statut}",
+            title: "Destination : ${vehicle.destination} | Affluence : ${vehicle.affluence}",
+            snippet : "Ligne : ${vehicle.route} | Statut :  ${vehicle.statut}",
 
           ),
           icon: vehicle.color,
