@@ -1,12 +1,13 @@
 import 'package:apli1/pages/lignes_page.dart';
 import 'package:flutter/material.dart';
 import 'package:apli1/pages/map_page.dart';
+import 'package:apli1/pages/home_page.dart';
 import 'package:apli1/src/gtfs.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 
 
 void main(){
-  runApp(const MaterialApp(home : MyApp(), debugShowCheckedModeBanner: false,
+  runApp(const MaterialApp(home : Home(), debugShowCheckedModeBanner: false,
   ));
   getData();
 

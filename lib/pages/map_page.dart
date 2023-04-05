@@ -52,7 +52,6 @@ import 'package:apli1/src/gtfs.dart' as gtfs;
 
 import '../main.dart';
 
-import 'dart:math';
 
 
 class MapPage extends StatefulWidget {
@@ -69,6 +68,8 @@ class _MapPageState extends State<MapPage> {
 
 
   final Map<String, Marker> _markers = {};
+
+  //Au moment de l'initialisation, on récupère la data de l'API
   Future<void> _onMapCreated(GoogleMapController controller) async {
     final vehiclesInfo = await gtfs.getData();
     final icon = await BitmapDescriptor.fromAssetImage(
@@ -84,15 +85,17 @@ class _MapPageState extends State<MapPage> {
 
     setState(() {
 
-      final affluences = ["nulle", "faible","moyenne", "forte", "très forte"];
 
       _markers.clear();
 
       for (final vehicle in vehiclesInfo) {
 
+        //Marqueur placé à la position de chaque véhicule
         final marker = Marker(
           markerId: MarkerId(vehicle.id),
           position: LatLng(vehicle.latitude, vehicle.longitude),
+
+          //Pop up qui s'affiche en cliquant sur un marqueur
           infoWindow: InfoWindow(
             title: "Ligne : ${vehicle.route} Destination : ${vehicle.destination}",
             snippet : "affluence : ${vehicle.affluence}     statut :  ${vehicle.statut}",
@@ -117,12 +120,16 @@ class _MapPageState extends State<MapPage> {
         body: GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: const CameraPosition(
+
+            //Centré sur la région du Cap du Cotentin
             target: LatLng(49.63362121582031, -1.6171009540557861),
             zoom: 13.5,
           ),
           markers: _markers.values.toSet(),
 
         ),
+
+    //Pour actualiser on appelle simplement la page
     floatingActionButton: FloatingActionButton.extended(
         backgroundColor : Colors.red,
         onPressed: ()=> {

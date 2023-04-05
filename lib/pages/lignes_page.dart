@@ -12,6 +12,8 @@ class Arrets {
   Arrets(this.arrets);
 }
 
+
+//chargement de csv
 Future<List<List>> _loadCSV(String csvPath) async {
   final _rawData = await rootBundle.loadString(csvPath);
   final list = await CsvToListConverter().convert(_rawData);
@@ -19,7 +21,7 @@ Future<List<List>> _loadCSV(String csvPath) async {
 }
 
 
-
+//De base c'est au format "départ <> Arrivée", donc on veut que Arrivée
 List getDestinations(String routeId) {
 
   List destination = [];
@@ -32,9 +34,9 @@ List getDestinations(String routeId) {
 }
 
 
+//Chargement des arrêts par ligne
 
 Future<List<String>> loadStops(String ligne) async {
-
 
   List <String> stopNames = [];
 
@@ -42,32 +44,19 @@ Future<List<String>> loadStops(String ligne) async {
 
 // Parcourir chaque ligne du CSV
   for (List<dynamic> row in csvList) {
-    // Vérifier si la colonne "ligne" contient 1
+    // Vérifier si la colonne "ligne" contient le numéro de ligne
     if (row[1].toString().contains(ligne)) {
       stopNames.add(row[2].toString());
 
     }
   }
 
+  //On enlève les doublons
   final arretsFinal = stopNames.toSet().toList();
 
   return arretsFinal;
 
 }
-
-
-Future<List<String>> getLigne(int index) async {
-
-  final ligne = (index).toString();
-
-  final arrets = await loadStops(ligne);
-
-  print("test 1");
-  final arretsFinal = arrets.toSet().toList();
-
-  return arretsFinal;
-}
-
 
 
 class SearchPage extends StatefulWidget {
@@ -81,7 +70,9 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
 
-  final ligne1 = 1;
+
+  //Je l'ai fait manuellement parce que ça valait pas le coup de le faire dynamiquement pour 6 lignes, mais il est tout à fait
+  //possible de récupérer dynamiquement les intitulés, routes et logos
   final events =[
     {
       "intitule": "Ligne 1",
@@ -123,18 +114,12 @@ class _SearchPageState extends State<SearchPage> {
 
   void getArrets() async {
 
-    arrets = await loadStops("1");
-    arretsTout.add(arrets);
-    arrets = await loadStops("2");
-    arretsTout.add(arrets);
-    arrets = await loadStops("3");
-    arretsTout.add(arrets);
-    arrets = await loadStops("4");
-    arretsTout.add(arrets);
-    arrets = await loadStops("5");
-    arretsTout.add(arrets);
-    arrets = await loadStops("6");
-    arretsTout.add(arrets);
+    //chaque élément de la liste arretsTout contient tous les arrets d'une ligne
+    for(int i = 1; i<7; i++){
+      arrets = await loadStops(i.toString());
+      arretsTout.add(arrets);
+    }
+
 
     setState(() {});
 
@@ -156,13 +141,7 @@ class _SearchPageState extends State<SearchPage> {
 
 
           return GestureDetector(
-            /*onTap: () =>
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                        pageBuilder: (_,__,___) => ArretsPage()
-                    )
-                ),*/
+
               child : Card(
 
                   child: ExpansionTile(
@@ -184,7 +163,6 @@ class _SearchPageState extends State<SearchPage> {
                                     for (int i = 0; i <2; i++)
                                       ListTile(
                                           onTap: () {
-                                            //String selectionArret = selectionRoute[index];
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(

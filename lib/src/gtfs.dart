@@ -8,6 +8,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'package:protobuf/protobuf.dart';
 
+
 class VehicleInfo {
   final String id;
   final String route;
@@ -21,6 +22,8 @@ class VehicleInfo {
   VehicleInfo(this.id, this.route, this.latitude, this.longitude, this.destination, this.color, this.statut, this.affluence);
 }
 
+
+//Utilisée pour enlever le 0 devant le  numéro de ligne au sein du flux GTFS
 String strip(String str, String charactersToRemove){
   String escapedChars = RegExp.escape(charactersToRemove);
   RegExp regex = new RegExp(r"^["+escapedChars+r"]+|["+escapedChars+r']+$');
@@ -28,6 +31,7 @@ String strip(String str, String charactersToRemove){
   return newStr;
 }
 
+// On récupère la destination à partir de l'ID de chaque véhicule du flux
 String? getRouteLongNameFromId(String routeId, List<dynamic> csvList) {
 
   String destination = "";
@@ -35,7 +39,6 @@ String? getRouteLongNameFromId(String routeId, List<dynamic> csvList) {
   String routeIdSans0 = strip(routeId, toRemove);
   // Parcourir chaque ligne du CSV
   for (List<dynamic> row in csvList) {
-    //print (row);
     // Vérifier si l'ID de la route correspond
     if (routeIdSans0 == row[0].toString()) {
       destination = row[3].split("-")[1].trim();
@@ -47,6 +50,8 @@ String? getRouteLongNameFromId(String routeId, List<dynamic> csvList) {
   return "INCONNU";
 }
 
+
+//Récupération du statut du véhicule (prochain arrêt)
 Future<String> getStatut(String statut, String stopId) async {
   String enRoute = "IN_TRANSIT_TO";
   String arret = "STOPPED_AT";
@@ -54,8 +59,8 @@ Future<String> getStatut(String statut, String stopId) async {
   final csvList = await _loadCSV("assets/stopsCotentin.csv");
   if(statut == enRoute) {
     statut = "en route vers l'arrêt ";
-
   }
+
   else if (statut == arret) {
     statut = "stoppé à l'arrêt ";
   }
@@ -73,6 +78,7 @@ Future<String> getStatut(String statut, String stopId) async {
 }
 
 
+//Simulation d'affluence
 String selectRandom(List items) {
   final random = Random();
   final index = random.nextInt(items.length);
@@ -80,8 +86,8 @@ String selectRandom(List items) {
 }
 
 
+//On atribue une couleur à chaque marqueur de véhicule une couleur en fonction de sa ligne
 Future<BitmapDescriptor> getColor(String routeId) async {
-
 
   switch(routeId){
 
@@ -133,21 +139,7 @@ Future<BitmapDescriptor> getColor(String routeId) async {
           "assets/images/bus_marker_06.png"
       );
       return  icon;
-    /* case "A" :
-      break;
-    case "B" :
-      break;
-    case "C" :
-      break;
-    case "D" :
-      break;
-    case "E" :
-      break;
-    case "F" :
-      break;
-    case "G" :
-      break;
-*/
+
     default :
       final icon = await BitmapDescriptor.fromAssetImage(
           ImageConfiguration(
@@ -161,6 +153,8 @@ Future<BitmapDescriptor> getColor(String routeId) async {
 
 }
 
+
+//Chargement d'un fichier CSV
 Future<List<List>> _loadCSV(String csvPath) async {
   final _rawData = await rootBundle.loadString(csvPath);
   final list = await CsvToListConverter().convert(_rawData);
@@ -168,10 +162,14 @@ Future<List<List>> _loadCSV(String csvPath) async {
   return list;
 }
 
+
+
+//Connection à l'API et récupération des infos du flux
 Future<List<VehicleInfo>> getData() async {
   final routeCsv = await _loadCSV("assets/routesCotentin.csv");
 
 
+  //Lien de l'API parsé
   final url = Uri.parse(
       'https://pysae.com/api/v2/groups/transdev-cotentin/gtfs-rt');
   final response = await http.get(url);
@@ -181,8 +179,6 @@ Future<List<VehicleInfo>> getData() async {
 
   final affluences = ["nulle", "faible","moyenne", "forte", "très forte"];
 
-
-  //print(feedMessage.entity.toString());
 
   for (var entity in feedMessage.entity) {
     final vehiclePosition = entity.vehicle?.position;
@@ -196,7 +192,6 @@ Future<List<VehicleInfo>> getData() async {
       final longitude = vehiclePosition.longitude;
       final destination = getRouteLongNameFromId(entity.vehicle.trip.routeId, routeCsv);
       final statut =  await getStatut((entity.vehicle.currentStatus).toString(), entity.vehicle.stopId);
-      //print (statut);
 
       final vehicleInfo = VehicleInfo(
           vehicleId, routeId!, latitude, longitude, destination!, color, statut, affluence);
@@ -211,5 +206,4 @@ Future<List<VehicleInfo>> getData() async {
 */
   return vehicleInfos;
 
-  //test
 }

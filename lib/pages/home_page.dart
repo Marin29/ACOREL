@@ -3,11 +3,11 @@ import '../main.dart';
 import '../src/gtfs.dart';
 
 
-void main(){
+/*void main(){
   runApp(const MaterialApp(home : Home(), debugShowCheckedModeBanner: false,
   ));
   getData();
-}//On run l'application depuis la home page pour avoir la page d'accueil mais elle pourrait très bien être run depuis le main pour arriver sur les lignes directement
+}*///On run l'application depuis la home page pour avoir la page d'accueil mais elle pourrait très bien être run depuis le main pour arriver sur les lignes directement
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
