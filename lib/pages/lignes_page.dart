@@ -167,7 +167,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                ArretsPage(direction: selectionRoute[i], arret: arret.toString(), ligne : route),
+                                                ArretsPage(direction: selectionRoute[i], arret: arret.toString(), ligne :(index+1).toString()),
 
                                             )
                                             );

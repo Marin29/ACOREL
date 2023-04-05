@@ -1,4 +1,6 @@
 
+import 'package:apli1/main.dart';
+import 'package:apli1/pages/lignes_page.dart';
 import'package:flutter/material.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
@@ -64,8 +66,9 @@ class ArretsPageState extends State<ArretsPage> {
     // Parcourir chaque ligne du CSV
     for (List<dynamic> row in csvList) {
       // Vérifier si l'ID de la route correspond
-      if (arret.toLowerCase() == row[3].toString().toLowerCase()) {
-        stopId = row[0];
+      if (arret.toLowerCase().contains(row[2].toString().toLowerCase())) {
+        stopId = row[0].toString();
+        print(stopId);
         return stopId;
       }
     }
@@ -107,10 +110,8 @@ class ArretsPageState extends State<ArretsPage> {
   }
 
 
-    //TODO : Récupérer le stopId en fonction de la sélection
 
   List<List<dynamic>> filterByStopId(List<List<dynamic>> data, String stopId) {
-    stopId = "BARPL2";
 
     // On utilise le csv stop_times qui contient les horaires (colonne 4) ainsi que les id des arrêts
     return data.where((row) => (row[3].toString()) == stopId).toList();
@@ -159,7 +160,13 @@ class ArretsPageState extends State<ArretsPage> {
         differences.add(updatedDateTime[i].difference(now).inMinutes);
       }
     }
-    return differences[1];
+    if(differences[0] == differences[1]){
+      differences[1] = differences[1] +8;
+      return differences[1];
+    }
+    else {
+      return differences[1];
+    }
   }
 
   //Pour le troisième véhicule
@@ -176,7 +183,13 @@ class ArretsPageState extends State<ArretsPage> {
       }
     }
     print(differences[2]);
+    if(differences[1] == differences[2]){
+      differences[2] = differences[2] +8;
+      return differences[2];
+    }
+    else {
     return differences[2];
+    }
   }
 
 
@@ -219,7 +232,7 @@ return MaterialApp(
           Padding(
     padding: const EdgeInsets.only(top: 45),
       child: Text(
-        'Ligne ${ligne.toLowerCase()} :Arrêt ${arret.toLowerCase()} direction $direction',
+        'Ligne ${ligne.toLowerCase()}, arrêt ${arret.toLowerCase()}, direction $direction',
         style: TextStyle(fontSize: 20, fontFamily: 'Poppins'),
         textAlign: TextAlign.center,
 
@@ -271,9 +284,28 @@ return MaterialApp(
         },
     ),
     ),
+
+
         ],
 
     ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor : Colors.red,
+        onPressed: ()=> {
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (_,__,___) => MyApp()
+              )
+          )
+        },
+
+
+        label: const Text('Retour'),
+        icon: const Icon(Icons.arrow_back),
+
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     ),
     );
 

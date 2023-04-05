@@ -40,7 +40,9 @@ class _HomeState extends State<Home> {
 
                Container(
                  margin: EdgeInsets.all(20),
-                 child : Text("Gaëlle, Audrey, Nadir et Marin sont heureux de vous présenter leur application réalisée dans le cadre de leur PPE en partenariat avec Acorel ! Grâce à cette application vous pourrez connaître la position de vos transports en commun ainsi que leurs taux d'occupation ",
+                 child : Text("Gaëlle, Audrey, Nadir et Marin sont heureux de "
+                     "vous présenter un prototype d'application réalisé dans le cadre de leur projet étudiant"
+                     " de quatrième année, en partenariat avec Acorel !",
               style:
               TextStyle(
                   fontSize: 16
